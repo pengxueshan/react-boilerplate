@@ -6,7 +6,11 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const fs = require('fs');
 const alias = require('./scripts/alias.js');
 const getDefineVar = require('./scripts/define-var').getDefineVar;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const _ = require('lodash');
+
+var noVisualization = process.env.NODE_ENV === 'production'
+        || process.argv.slice(-1)[0] == '-p';
 
 var entry = {
     core: './src/components/index.js'
@@ -89,7 +93,7 @@ module.exports = {
                 let isAlias = _.values(alias).some(item => {
                     return module.resource && module.resource.indexOf(item) >= 0;
                 });
-                return context && (context.indexOf('node_modules') >= 0 || isAlias);
+                return count >= 2 || (context && (context.indexOf('node_modules') >= 0 || context.indexOf('gf') >= 0 || isAlias));
             },
         }),
         new CleanWebpackPlugin(['dist']),
@@ -106,5 +110,9 @@ module.exports = {
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin(getDefineVar()),
-    ],
+        (!noVisualization ?
+            new BundleAnalyzerPlugin({
+                analyzerMode: 'static'
+            }) : null),
+    ].filter(p => p),
 };
