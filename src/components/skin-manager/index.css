@@ -1,0 +1,9 @@
+.skin-manager {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    label {
+        margin: 0 10px;
+    }
+}

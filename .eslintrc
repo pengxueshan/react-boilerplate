@@ -1,0 +1,38 @@
+{
+    "parser": "babel-eslint",
+    "plugins": [
+        "react"
+    ],
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true
+    },
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "rules": {
+        "indent": [
+            "error",
+            4,
+            {"SwitchCase": 1}
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ]
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true,
+            "experimentalObjectRestSpread": true,
+            "experimentalDecorators": true
+        }
+    },
+    "globals": {
+        "ELECTRON": true
+    }
+}

@@ -1,0 +1,52 @@
+.loader {
+    position: relative;
+    animation: rotate linear infinite 3s;
+    width: 20px;
+    height: 35px;
+    .red {
+        border-width: 17.3px 10px 0 10px;
+        border-style: solid;
+        border-color: red transparent transparent;
+        position: absolute;
+        top: 0;
+        left: 0;
+        animation: move1 ease-in-out infinite 3s;
+    }
+    .blue {
+        border-width: 0 10px 17.3px 10px;
+        border-style: solid;
+        border-color: transparent transparent blue;
+        position: absolute;
+        top: 18px;
+        left: 0;
+        animation: move2 ease-in-out infinite 3s;
+    }
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes move1 {
+    33.33% {
+        transform: translateX(11px) translateY(18px);
+    }
+    66.66% {
+        transform: translateX(-11px) translateY(18px);
+    }
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+}
+@keyframes move2 {
+    33.33% {
+        transform: translateX(-11px) translateY(-18px);
+    }
+    66.66% {
+        transform: translateX(11px) translateY(-18px);
+    }
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+}

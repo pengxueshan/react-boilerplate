@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        var plugins = <%= JSON.stringify(htmlWebpackPlugin.files) %>
+    </script>
+    <script src=<%= htmlWebpackPlugin.files.chunks.commons.entry %>></script>
+    <script src=<%= htmlWebpackPlugin.files.chunks.core.entry %>></script>
+</body>
+
+</html>

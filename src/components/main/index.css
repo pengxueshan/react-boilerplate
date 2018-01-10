@@ -1,0 +1,10 @@
+@import '../../style/reset.css';
+
+body {
+    &.dark {
+        background: #ddd;
+    }
+    &.light {
+        background: #fff;
+    }
+}
