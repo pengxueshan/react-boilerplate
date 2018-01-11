@@ -8,9 +8,10 @@ const alias = require('./scripts/alias.js');
 const getDefineVar = require('./scripts/define-var').getDefineVar;
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const _ = require('lodash');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
-var noVisualization = process.env.NODE_ENV === 'production'
-        || process.argv.slice(-1)[0] == '-p';
+// var noVisualization = process.env.NODE_ENV === 'production' || process.argv.slice(-1)[0] == '-p';
 
 var entry = {
     core: './src/components/index.js'
@@ -28,7 +29,7 @@ module.exports = {
     entry: entry,
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[hash:8].js'
+        filename: '[name].[chunkhash:8].js'
     },
     module: {
         rules: [{
@@ -85,6 +86,7 @@ module.exports = {
         hot: true,
     },
     plugins: [
+        new LodashModuleReplacementPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'commons',
             filename: 'commons.[hash:8].js',
@@ -110,9 +112,14 @@ module.exports = {
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin(getDefineVar()),
-        (!noVisualization ?
-            new BundleAnalyzerPlugin({
-                analyzerMode: 'static'
-            }) : null),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static'
+        }),
+        new ImageminPlugin({
+            disable: false,
+            pngquant: {
+                quality: '95-100'
+            }
+        }),
     ].filter(p => p),
 };
