@@ -3,3 +3,11 @@ html, body, p, h1, h2, h3, h4, h5, h6, ul, li, b, i, span, div {
     margin: 0;
     box-sizing: border-box;
 }
+
+body {
+    font-size: 12px;
+}
+
+html, body {
+    height: 100%;
+}

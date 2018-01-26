@@ -6,7 +6,7 @@ import {version, os, env} from './env';
 
 function connectTrade() {
     return doConfig.then(function() {
-        var tradeUrl = env['HIPPO_TRADE_URL'] || 'ws://10.2.148.84:80/ws',
+        var tradeUrl = env['HIPPO_TRADE_URL'] || 'ws://10.2.148.85:80/ws',
             tradeUrls = env['HIPPO_TRADE_URLS'];
         if (tradeUrls) {
             return JSON.parse(tradeUrls).map((s, i) => {
@@ -58,7 +58,7 @@ let doConfig = when.promise(function (resolve) {
         } else {
             appVer = 'web';
         }
-        let opStation = `HIPPO|ver=${appVer}|ip=${ip}|mac=${macAddr}|hdd=${hddSerial}|lan_ip=null|site=http://hippo.gf.com.cn`;
+        let opStation = `HIPPO|ver=${appVer}|ip=null|mac=${macAddr}|hdd=${hddSerial}|lan_ip=${ip}|site=http://hippo.gf.com.cn`;
         Config.set({
             softwareVer: 360,
             deviceType: 3,

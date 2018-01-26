@@ -6,15 +6,19 @@ import {loadPlugins} from '../../utils/plugin-store';
 import Loader from '../loader';
 import {connect} from '../../utils/connection';
 import AppRouter from '../router';
+import LoginPopup from '../login-popup';
+import Status from '../status';
 
 import './index.css';
 
 @inject(stores => {
     let {
-        skin
+        skin,
+        isLoginShow
     } = stores.app;
     return {
-        skin
+        skin,
+        isLoginShow
     }
 })
 @observer
@@ -52,11 +56,14 @@ export default class App extends Component {
             <div className="app">
                 <TopBar />
                 <AppRouter />
+                <Status />
+                {this.props.isLoginShow ? <LoginPopup /> : null}
             </div>
         );
     }
 }
 
 App.propTypes = {
-    skin: PropTypes.string
+    skin: PropTypes.string,
+    isLoginShow: PropTypes.bool,
 };

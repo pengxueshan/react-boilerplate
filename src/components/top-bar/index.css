@@ -1,1 +1,8 @@
-.top-bar {}
+.top-bar {
+    height: 30px;
+    line-height: 30px;
+    background: #000;
+    color: #fff;
+    padding: 0 20px;
+    display: flex;
+}

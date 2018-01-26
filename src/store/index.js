@@ -1,7 +1,7 @@
 import app from './app';
-import login from './login';
+import user from './user';
 
 export default {
     app,
-    login
+    user
 }

@@ -12,6 +12,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 // var noVisualization = process.env.NODE_ENV === 'production' || process.argv.slice(-1)[0] == '-p';
+let showAnalyzer = process.argv.includes('--analyzer');
 
 var entry = {
     core: './src/components/index.js'
@@ -112,9 +113,9 @@ module.exports = {
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin(getDefineVar()),
-        new BundleAnalyzerPlugin({
+        showAnalyzer ? new BundleAnalyzerPlugin({
             analyzerMode: 'static'
-        }),
+        }) : null,
         new ImageminPlugin({
             disable: false,
             pngquant: {

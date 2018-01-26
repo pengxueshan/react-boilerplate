@@ -41,11 +41,12 @@
     "uglifyjs-webpack-plugin": "^1.1.6",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.9.2",
     "webpack-dev-server": "^2.9.7",
     "yargs": "^10.0.3"
   },
   "dependencies": {
-    "@gf/gf-quote-sdk": "^1.2.22",
+    "@gf/gf-quote-sdk": "1.2.37",
     "classnames": "^2.2.5",
     "jquery": "^3.2.1",
     "mobx": "^3.4.1",
@@ -53,7 +54,6 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
-    "webpack-bundle-analyzer": "^2.9.2",
     "when": "^3.7.8"
   }
 }
