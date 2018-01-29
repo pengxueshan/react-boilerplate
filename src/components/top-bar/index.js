@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import SkinManager from '../skin-manager';
 import UserInfo from '../user-info';
 import Nav from '../router/nav';
+import Setting from '../setting';
 
 import './index.css';
 
@@ -11,7 +11,7 @@ export default class TopBar extends Component {
             <div className="top-bar">
                 <UserInfo />
                 <Nav />
-                <SkinManager />
+                <Setting />
             </div>
         );
     }

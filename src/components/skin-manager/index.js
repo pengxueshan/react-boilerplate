@@ -17,6 +17,11 @@ import './index.css';
 })
 @observer
 export default class SkinManager extends Component {
+    static propTypes = {
+        setSkin: PropTypes.func,
+        skin: PropTypes.string
+    };
+
     setSkin = (e) => {
         let checked = e.target.checked;
         let skin = e.target.dataset['skin'];
@@ -47,9 +52,4 @@ export default class SkinManager extends Component {
             </div>
         );
     }
-}
-
-SkinManager.propTypes = {
-    setSkin: PropTypes.func,
-    skin: PropTypes.string
 }

@@ -5,6 +5,7 @@ class Store {
     @observable skin = ConfigStore.getItem('skin') || 'dark';
     @observable isLoginShow = false;
     @observable isQuickFixed = false;
+    @observable isSettingShow = false;
     @action setSkin = (skin) => {
         this.skin = skin;
     }
@@ -16,6 +17,12 @@ class Store {
     }
     @action setQuickFixed = (isFixed) => {
         this.isQuickFixed = isFixed;
+    }
+    @action showSetting = () => {
+        this.isSettingShow = true;
+    }
+    @action hideSetting = () => {
+        this.isSettingShow = false;
     }
 }
 

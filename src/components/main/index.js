@@ -25,6 +25,11 @@ import './index.css';
 })
 @observer
 export default class App extends Component {
+    static propTypes = {
+        skin: PropTypes.string,
+        isLoginShow: PropTypes.bool,
+    };
+
     state = {
         isloaded: false
     }
@@ -69,8 +74,3 @@ export default class App extends Component {
         );
     }
 }
-
-App.propTypes = {
-    skin: PropTypes.string,
-    isLoginShow: PropTypes.bool,
-};

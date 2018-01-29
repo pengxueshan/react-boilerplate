@@ -18,6 +18,10 @@ import './index.css';
 })
 @observer
 export default class LoginPopup extends Component {
+    static propTypes = {
+        hideLogin: PropTypes.func
+    };
+
     state = {
         clientAccount: '',
         password: '',
@@ -39,6 +43,7 @@ export default class LoginPopup extends Component {
     renderVerifyCode = () => {}
 
     checkNeedVerify = () => {
+        if (!this.state.clientAccount) return;
         let params = {
             clientAccount: this.state.clientAccount,
             assetProp: '0'
@@ -139,7 +144,8 @@ export default class LoginPopup extends Component {
                 title="登录"
                 onClose={this.props.hideLogin}
                 buttons={['登录', '取消']}
-                onBtnClick={this.handleBtnClick}>
+                onBtnClick={this.handleBtnClick}
+                width={300}>
                 <div className="login-popup">
                     <div className="form-item">
                         <Input
@@ -164,7 +170,3 @@ export default class LoginPopup extends Component {
         );
     }
 }
-
-LoginPopup.propTypes = {
-    hideLogin: PropTypes.func
-};

@@ -1,5 +1,6 @@
 .core-router-nav {
     display: flex;
+    flex: 1;
     >a {
         background: #fff;
         padding: 0 10px;
