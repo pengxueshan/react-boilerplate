@@ -4,6 +4,7 @@ import ConfigStore from '../utils/config-store';
 class Store {
     @observable skin = ConfigStore.getItem('skin') || 'dark';
     @observable isLoginShow = false;
+    @observable isQuickFixed = false;
     @action setSkin = (skin) => {
         this.skin = skin;
     }
@@ -12,6 +13,9 @@ class Store {
     }
     @action hideLogin = () => {
         this.isLoginShow = false;
+    }
+    @action setQuickFixed = (isFixed) => {
+        this.isQuickFixed = isFixed;
     }
 }
 

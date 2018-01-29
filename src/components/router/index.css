@@ -1,0 +1,17 @@
+.core-router-nav {
+    display: flex;
+    >a {
+        background: #fff;
+        padding: 0 10px;
+        &:hover {
+            background: #ddd;
+        }
+        &.active {
+            background: #ddd;
+        }
+    }
+}
+
+.core-router-content {
+    flex: 1;
+}

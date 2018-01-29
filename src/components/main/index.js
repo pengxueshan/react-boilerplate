@@ -5,9 +5,11 @@ import {observer, inject} from 'mobx-react';
 import {loadPlugins} from '../../utils/plugin-store';
 import Loader from '../loader';
 import {connect} from '../../utils/connection';
-import AppRouter from '../router';
 import LoginPopup from '../login-popup';
 import Status from '../status';
+import {HashRouter} from 'react-router-dom';
+import Routes from '../router';
+import Quick from '../quick';
 
 import './index.css';
 
@@ -53,12 +55,17 @@ export default class App extends Component {
             return <Loader />;
         }
         return (
-            <div className="app">
-                <TopBar />
-                <AppRouter />
-                <Status />
-                {this.props.isLoginShow ? <LoginPopup /> : null}
-            </div>
+            <HashRouter>
+                <div className="app">
+                    <TopBar />
+                    <div className="app-content">
+                        <Routes />
+                        <Quick />
+                    </div>
+                    <Status />
+                    {this.props.isLoginShow ? <LoginPopup /> : null}
+                </div>
+            </HashRouter>
         );
     }
 }

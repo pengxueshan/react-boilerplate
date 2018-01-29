@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {inject, observer} from 'mobx-react';
 import {trade} from '@gf/gf-quote-sdk';
 
+import './index.css';
+
 @inject(stores => {
     let {
         isTradeLogin
@@ -25,7 +27,7 @@ export default class UserInfo extends Component {
         let related = trade.session.getSessionRelated();
         if (related && related['0']) {
             let accounts = related['0'].stkAccountData;
-            let account =  accounts.find(item => {
+            let account = accounts.find(item => {
                 return item.mainFlag == '1';
             });
             return account && account.holderName;
