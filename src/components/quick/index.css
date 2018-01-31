@@ -19,4 +19,10 @@
         background: none;
         opacity: 1;
     }
+    &-fixed {
+        text-align: center;
+        cursor: pointer;
+        background: #000;
+        color: #fff;
+    }
 }

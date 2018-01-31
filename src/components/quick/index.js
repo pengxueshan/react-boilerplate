@@ -35,7 +35,8 @@ export default class Quick extends Component {
         });
         return (
             <div className={cls}>
-                <div onClick={this.handleFixedClick}>{this.props.isQuickFixed ? '解除固定' : '固定'}</div>
+                <div onClick={this.handleFixedClick}
+                    className="app-quick-fixed">{this.props.isQuickFixed ? '解除固定' : '固定'}</div>
             </div>
         );
     }

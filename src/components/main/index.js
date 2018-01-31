@@ -57,7 +57,7 @@ export default class App extends Component {
 
     render() {
         if (!this.state.isloaded) {
-            return <Loader />;
+            return <div className="app-loader"><Loader /></div>;
         }
         return (
             <HashRouter>
