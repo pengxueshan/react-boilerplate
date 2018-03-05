@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {inject, observer} from 'mobx-react';
-import {SKIN} from '../../utils/constants';
+import {SKIN} from '../../../utils/constants';
 
 import './index.css';
 

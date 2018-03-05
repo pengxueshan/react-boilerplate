@@ -6,7 +6,6 @@ module.exports = {
     //utils
     'trader/utils': 'utils/index',
     'trader/coreConst': 'utils/constants',
-    'trader/pluginStore': 'utils/plugin-store',
     'trader/safeinput': 'utils/safeinput',
     //components
     'trader/loader': 'components/loader',

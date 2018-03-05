@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import TopBar from '../top-bar';
 import {observer, inject} from 'mobx-react';
-import {loadPlugins} from '../../utils/plugin-store';
 import Loader from '../loader';
-import {connect} from '../../utils/connection';
+import {connect} from '../../../utils/connection';
 import LoginPopup from '../login-popup';
 import Status from '../status';
 import {HashRouter} from 'react-router-dom';
@@ -35,7 +34,7 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        loadPlugins().then(connect).then(() => {
+        connect().then(() => {
             this.setSkin();
             this.setState({
                 isloaded: true

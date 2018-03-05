@@ -3,10 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const fs = require('fs');
 const alias = require('./scripts/alias.js');
 const getDefineVar = require('./scripts/define-var').getDefineVar;
-const _ = require('lodash');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -14,22 +12,15 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 var isProd = true;
 
 var entry = {
-    core: './src/components/index.js'
+    core: './src/components/core/index.js'
 };
-try {
-    var plugins = fs.readdirSync('./plugins');
-    plugins.forEach(function(pluginId) {
-        entry[pluginId] = `./plugins/${pluginId}/index.js`;
-    });
-} catch (e) {
-    console.log(e); // eslint-disable-line
-}
 
 module.exports = {
     entry: entry,
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[chunkhash:8].js'
+        filename: '[name].[hash:8].js',
+        chunkFilename: '[name].[hash:8].js',
     },
     module: {
         rules: [{
@@ -76,17 +67,6 @@ module.exports = {
     stats: 'errors-only',
     plugins: [
         new LodashModuleReplacementPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'commons',
-            filename: 'commons.[hash:8].js',
-            minChunks(module, count) {
-                var context = module.context;
-                let isAlias = _.values(alias).some(item => {
-                    return module.resource && module.resource.indexOf(item) >= 0;
-                });
-                return count >= 2 || (context && (context.indexOf('node_modules') >= 0 || context.indexOf('gf') >= 0 || isAlias));
-            },
-        }),
         new CleanWebpackPlugin(['dist']),
         new CopyWebpackPlugin([{
             from: './src/main.js',
@@ -96,7 +76,7 @@ module.exports = {
             filename: 'index.html',
             template: 'src/template/index.html',
             title: 'index',
-            inject: false
+            inject: true
         }),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
