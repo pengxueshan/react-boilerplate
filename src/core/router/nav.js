@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {MODULE_INFO} from '../../../utils/constants';
+import {routeInfo} from '../../utils/module-info';
 import {NavLink} from 'react-router-dom';
 
 export default class Nav extends Component {
     renderNav() {
-        return Object.keys(MODULE_INFO).map(item => {
-            let mod = MODULE_INFO[item];
-            return <NavLink key={mod.id} to={`/${mod.id}`} activeClassName="active">{mod.name}</NavLink>;
+        return routeInfo.map(mod => {
+            return (
+                <NavLink key={mod.id} to={mod.path} activeClassName="active">{mod.name}</NavLink>
+            );
         });
     }
 

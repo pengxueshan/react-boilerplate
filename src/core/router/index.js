@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import {MODULE_INFO} from '../../../utils/constants';
+import {routeInfo} from '../../utils/module-info';
 import {Route} from 'react-router-dom';
 
 import './index.css';
 
 export default class Routes extends Component {
     renderNavContent() {
-        return Object.keys(MODULE_INFO).map(item => {
-            let mod = MODULE_INFO[item];
-            let modComponent = mod.component;
-            return <Route key={mod.id} path={`/${mod.id}`} component={modComponent} />;
+        return routeInfo.map(mod => {
+            return (
+                <Route key={mod.id} path={mod.path} component={mod.component} />
+            );
         });
     }
 

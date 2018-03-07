@@ -10,10 +10,10 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 // var noVisualization = process.env.NODE_ENV === 'production' || process.argv.slice(-1)[0] == '-p';
-let showAnalyzer = true || process.argv.includes('--analyzer');
+let showAnalyzer = process.argv.includes('--analyzer');
 
 var entry = {
-    core: './src/components/core/index.js'
+    core: './src/core/index.js'
 };
 
 module.exports = {

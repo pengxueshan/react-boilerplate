@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TopBar from '../top-bar';
 import {observer, inject} from 'mobx-react';
 import Loader from '../loader';
-import {connect} from '../../../utils/connection';
+import {connect} from '../../utils/connection';
 import LoginPopup from '../login-popup';
 import Status from '../status';
 import {HashRouter} from 'react-router-dom';
