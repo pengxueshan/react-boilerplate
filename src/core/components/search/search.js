@@ -14,14 +14,16 @@ import './index.css';
         setSearchList,
         isShowLayer,
         setIsFocus,
-        setHistoryList
+        setHistoryList,
+        clearList
     } = stores.searchStore;
     return {
         searchList,
         setSearchList,
         isShowLayer,
         setIsFocus,
-        setHistoryList
+        setHistoryList,
+        clearList
     };
 })
 @observer
@@ -32,10 +34,11 @@ export default class Search extends Component {
         setSearchList: PropTypes.func,
         setIsFocus: PropTypes.func,
         setHistoryList: PropTypes.func,
+        clearList: PropTypes.func,
     };
 
     handleLayerClose = () => {
-        this.props.setSearchList([]);
+        this.props.clearList();
     }
 
     handleInputChange = v => {
@@ -81,8 +84,7 @@ export default class Search extends Component {
                     onFocus={this.handleInputFocus}
                     onBlur={this.handleInputBlur} />
                 {this.props.isShowLayer ?
-                    <Layer onClose={this.handleLayerClose} position={position}
-                        delayClose={100}>
+                    <Layer onClose={this.handleLayerClose} position={position}>
                         <div className="code-search-layer" style={style}>
                             <SearchHistory />
                             <Result />

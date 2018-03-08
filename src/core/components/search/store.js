@@ -24,6 +24,10 @@ class Store {
             this.historyList = getItem(SEARCH_HISTORY_KEY);
         }
     }
+    @action clearList = () => {
+        this.searchList = [];
+        this.historyList = [];
+    }
 }
 
 let searchStore = new Store();

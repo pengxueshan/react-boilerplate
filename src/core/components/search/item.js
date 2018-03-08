@@ -7,12 +7,10 @@ import _ from 'lodash';
 
 @inject(stores => {
     let {
-        setSearchList,
-        setHistoryList
+        clearList,
     } = stores.searchStore;
     return {
-        setSearchList,
-        setHistoryList
+        clearList,
     };
 })
 @observer
@@ -20,8 +18,7 @@ export default class Item extends Component {
     static propTypes = {
         data: PropTypes.object,
         onClick: PropTypes.func,
-        setSearchList: PropTypes.func,
-        setHistoryList: PropTypes.func
+        clearList: PropTypes.func,
     };
 
     handleItemClick = () => {
@@ -29,8 +26,7 @@ export default class Item extends Component {
         let storeData = [].concat(this.props.data, data);
         storeData = this.getDataToStore(storeData);
         setItem(SEARCH_HISTORY_KEY, storeData);
-        this.props.setSearchList([]);
-        this.props.setHistoryList([]);
+        this.props.clearList();
     }
 
     getDataToStore = data => {
