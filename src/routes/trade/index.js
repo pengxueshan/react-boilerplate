@@ -1,7 +1,10 @@
 import React from 'react';
+import FindTradeCode from './components/find-trade-code';
 
 export default function Trade() {
     return (
-        <div>trade</div>
+        <div>
+            <FindTradeCode />
+        </div>
     );
 }

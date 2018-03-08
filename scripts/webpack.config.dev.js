@@ -3,8 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const alias = require('./scripts/alias.js');
-const getDefineVar = require('./scripts/define-var').getDefineVar;
+const alias = require('./alias');
+const getDefineVar = require('./define-var').getDefineVar;
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
@@ -13,13 +13,16 @@ const ImageminPlugin = require('imagemin-webpack-plugin').default;
 let showAnalyzer = process.argv.includes('--analyzer');
 
 var entry = {
-    core: './src/core/index.js'
+    core: path.resolve(process.cwd(), 'src/core/index.js')
 };
+
+const srcDir = path.resolve(process.cwd(), 'src');
+const distDir = path.resolve(process.cwd(), 'dist');
 
 module.exports = {
     entry: entry,
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: distDir,
         filename: '[name].[hash:8].js',
         chunkFilename: '[name].[hash:8].js',
     },
@@ -59,7 +62,7 @@ module.exports = {
     resolve: {
         modules: [
             'node_modules',
-            path.resolve(__dirname, 'src')
+            srcDir
         ],
         extensions: ['.js', '.json', '.jsx', '.css'],
         alias: alias
@@ -73,7 +76,7 @@ module.exports = {
         },
         port: 3333,
         inline: true,
-        contentBase: path.join(__dirname, 'dist'),
+        contentBase: distDir,
         compress: true,
         hot: true,
     },
@@ -90,14 +93,14 @@ module.exports = {
         //         return count >= 2 || (context && (context.indexOf('node_modules') >= 0 || context.indexOf('gf') >= 0 || isAlias));
         //     },
         // }),
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin([distDir]),
         new CopyWebpackPlugin([{
-            from: './src/main.js',
-            to: './main.js'
+            from: path.resolve(process.cwd(), 'src/main.js'),
+            to: path.resolve(process.cwd(), 'main.js')
         }]),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: 'src/template/index.html',
+            template: path.resolve(process.cwd(), 'src/template/index.html'),
             title: 'index',
             inject: true
         }),

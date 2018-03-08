@@ -1,5 +1,5 @@
 import Loadable from 'react-loadable';
-import Loader from '../core/loader';
+import Loader from '../core/components/loader';
 
 let Quote = Loadable({
     loader: () => import(/* webpackChunkName: "quote" */'../routes/quote'),

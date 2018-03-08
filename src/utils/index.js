@@ -1,7 +1,3 @@
-export function testExport() {
-    console.log('from src code');
-}
-
 if (ELECTRON) {
     var remote = require('electron').remote;
 }

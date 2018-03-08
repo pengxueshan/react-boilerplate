@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {routeInfo} from '../../utils/module-info';
-import {Route} from 'react-router-dom';
+import {routeInfo} from '../../../utils/module-info';
+import {Route, Switch} from 'react-router-dom';
 
 import './index.css';
 
@@ -16,7 +16,9 @@ export default class Routes extends Component {
     render() {
         return (
             <div className="core-router-content">
-                {this.renderNavContent()}
+                <Switch>
+                    {this.renderNavContent()}
+                </Switch>
             </div>
         );
     }

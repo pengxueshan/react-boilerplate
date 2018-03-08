@@ -1,4 +1,4 @@
-import {getBinary} from './index';
+import {getBinary} from '../utils';
 import algo from 'exports-loader?exports.algo.core!../lib/algo';
 
 var encrypt, getMac, getSerial, getMacAddr, getHddSerial, getVersion, getSign;

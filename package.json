@@ -4,7 +4,7 @@
   "description": "",
   "main": "./dist/main.js",
   "scripts": {
-    "start": "webpack-dev-server --host 0.0.0.0",
+    "start": "webpack-dev-server --host 0.0.0.0 --config scripts/webpack.config.dev.js",
     "start:client": "webpack -w --color --display normal",
     "client": "electron ./dist/main.js --debug"
   },

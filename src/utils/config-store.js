@@ -11,6 +11,8 @@ export function getItem(key, pluginId) {
     if (pluginId) {
         storeKey = `${pluginId}:${storeKey}`;
     }
+    let data = localStorage.getItem(storeKey);
+    if (data === null || data === undefined) return data;
     return JSON.parse(localStorage.getItem(storeKey));
 }
 

@@ -4,11 +4,12 @@ const path = require('path');
 
 module.exports = {
     //utils
-    'trader/utils': 'utils/index',
-    'trader/coreConst': 'utils/constants',
-    'trader/safeinput': 'utils/safeinput',
+    'trader/utils': path.resolve(process.cwd(), 'src/utils/index'),
+    'trader/coreConst': path.resolve(process.cwd(), 'src/utils/constants'),
+    'trader/safeinput': path.resolve(process.cwd(), 'src/utils/safeinput'),
+    'trader/codelist': path.resolve(process.cwd(), 'src/utils/codelist'),
     //components
-    'trader/loader': 'components/loader',
+    'trader/loader': path.resolve(process.cwd(), 'src/core/loader'),
     //css alias
     'trader/coreCssVar': path.resolve(process.cwd(), 'src/style/variable.css'),
 }

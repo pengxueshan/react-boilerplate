@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Popup, Input} from 'codish-ui';
 import {inject, observer} from 'mobx-react';
 import {trade} from '@gf/gf-quote-sdk';
-import safeinput from '../../utils/safeinput';
+import safeinput from '../../../lib/safeinput';
 import when from 'when';
 
 import './index.css';

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Popup} from 'codish-ui';
 import {inject, observer} from 'mobx-react';
 import SettingPop from './pop';
+import Search from '../search';
 
 import './index.css';
 
@@ -28,7 +29,8 @@ export default class Setting extends Component {
 
     render() {
         return (
-            <div className="setting">
+            <div className="app-setting">
+                <Search />
                 <span onClick={this.props.showSetting}>设置</span>
                 {
                     this.props.isSettingShow ?

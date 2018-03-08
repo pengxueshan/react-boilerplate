@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {routeInfo} from '../../utils/module-info';
+import {routeInfo} from '../../../utils/module-info';
 import {NavLink} from 'react-router-dom';
 
 export default class Nav extends Component {
