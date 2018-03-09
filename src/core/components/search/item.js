@@ -4,6 +4,7 @@ import {SEARCH_HISTORY_KEY} from './constants';
 import {getItem, setItem} from '../../../utils/config-store';
 import {inject, observer} from 'mobx-react';
 import _ from 'lodash';
+import {withRouter} from 'react-router';
 
 @inject(stores => {
     let {
@@ -14,11 +15,12 @@ import _ from 'lodash';
     };
 })
 @observer
-export default class Item extends Component {
+class Item extends Component {
     static propTypes = {
         data: PropTypes.object,
         onClick: PropTypes.func,
         clearList: PropTypes.func,
+        history: PropTypes.object,
     };
 
     handleItemClick = () => {
@@ -27,6 +29,7 @@ export default class Item extends Component {
         storeData = this.getDataToStore(storeData);
         setItem(SEARCH_HISTORY_KEY, storeData);
         this.props.clearList();
+        this.props.history.push(`/quote/${this.props.data.market}/${this.props.data.code}`);
     }
 
     getDataToStore = data => {
@@ -46,3 +49,5 @@ export default class Item extends Component {
         );
     }
 }
+
+export default withRouter(Item);
