@@ -1,19 +1,18 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const alias = require('./alias');
-const getDefineVar = require('./define-var').getDefineVar;
+// const getDefineVar = require('./define-var').getDefineVar;
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // var noVisualization = process.env.NODE_ENV === 'production' || process.argv.slice(-1)[0] == '-p';
 let showAnalyzer = process.argv.includes('--analyzer');
 
 var entry = {
-    core: path.resolve(process.cwd(), 'src/core/index.js')
+    app: path.resolve(process.cwd(), 'src/index.js')
 };
 
 const srcDir = path.resolve(process.cwd(), 'src');
@@ -24,7 +23,7 @@ module.exports = {
     output: {
         path: distDir,
         filename: '[name].[hash:8].js',
-        chunkFilename: '[name].[hash:8].js',
+        chunkFilename: '[name].[chunkhash:8].js',
     },
     module: {
         rules: [{
@@ -68,36 +67,37 @@ module.exports = {
         alias: alias
     },
     devtool: 'source-map', // enum
-    externals: ['net'],
+    mode: 'development',
+    // externals: ['net'],
     stats: 'errors-only',
     devServer: {
         proxy: {
-            '/api': 'http://localhost:3333'
+            '/api': 'http://localhost:8080'
         },
-        port: 3333,
+        port: 8080,
         inline: true,
         contentBase: distDir,
         compress: true,
         hot: true,
     },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                },
+                commons: {
+                    name: 'commons',
+                    chunks: 'initial',
+                    minChunks: 2
+                }
+            }
+        },
+    },
     plugins: [
         new LodashModuleReplacementPlugin(),
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'commons',
-        //     filename: 'commons.[hash:8].js',
-        //     minChunks(module, count) {
-        //         var context = module.context;
-        //         let isAlias = _.values(alias).some(item => {
-        //             return module.resource && module.resource.indexOf(item) >= 0;
-        //         });
-        //         return count >= 2 || (context && (context.indexOf('node_modules') >= 0 || context.indexOf('gf') >= 0 || isAlias));
-        //     },
-        // }),
-        new CleanWebpackPlugin([distDir]),
-        new CopyWebpackPlugin([{
-            from: path.resolve(process.cwd(), 'src/main.js'),
-            to: path.resolve(process.cwd(), 'main.js')
-        }]),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.resolve(process.cwd(), 'src/template/index.html'),
@@ -106,7 +106,7 @@ module.exports = {
         }),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.DefinePlugin(getDefineVar()),
+        // new webpack.DefinePlugin(getDefineVar()),
         showAnalyzer ? new BundleAnalyzerPlugin({
             analyzerMode: 'static'
         }) : null,
@@ -115,6 +115,10 @@ module.exports = {
             pngquant: {
                 quality: '95-100'
             }
+        }),
+        new ExtractTextPlugin({
+            filename: '[name].css',
+            ignoreOrder: true
         }),
     ].filter(p => p),
 };

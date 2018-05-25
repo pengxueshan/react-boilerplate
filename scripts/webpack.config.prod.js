@@ -1,26 +1,27 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const alias = require('./scripts/alias.js');
-const getDefineVar = require('./scripts/define-var').getDefineVar;
+const alias = require('./alias.js');
+// const getDefineVar = require('./define-var').getDefineVar;
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var isProd = true;
+// var isProd = true;
 
 var entry = {
-    core: './src/components/core/index.js'
+    app: './src/index.js'
 };
+
+const srcDir = path.resolve(process.cwd(), 'src');
+const distDir = path.resolve(process.cwd(), 'dist');
 
 module.exports = {
     entry: entry,
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: distDir,
         filename: '[name].[hash:8].js',
-        chunkFilename: '[name].[hash:8].js',
+        chunkFilename: '[name].[chunkhash:8].js',
     },
     module: {
         rules: [{
@@ -58,35 +59,50 @@ module.exports = {
     resolve: {
         modules: [
             'node_modules',
-            path.resolve(__dirname, 'src')
+            srcDir
         ],
         extensions: ['.js', '.json', '.jsx', '.css'],
         alias: alias
     },
-    externals: ['net'],
+    mode: 'production',
     stats: 'errors-only',
+    target: 'web',
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                },
+                commons: {
+                    name: 'commons',
+                    chunks: 'initial',
+                    minChunks: 2
+                }
+            }
+        },
+        minimize: true
+    },
     plugins: [
         new LodashModuleReplacementPlugin(),
-        new CleanWebpackPlugin(['dist']),
-        new CopyWebpackPlugin([{
-            from: './src/main.js',
-            to: './main.js'
-        }]),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: 'src/template/index.html',
+            template: path.resolve(process.cwd(), 'src/template/index.html'),
             title: 'index',
             inject: true
         }),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.DefinePlugin(getDefineVar(isProd)),
+        // new webpack.DefinePlugin(getDefineVar(isProd)),
         new ImageminPlugin({
             disable: false,
             pngquant: {
                 quality: '95-100'
             }
         }),
-        new UglifyJsPlugin()
+        new ExtractTextPlugin({
+            filename: '[name].css',
+            ignoreOrder: true
+        }),
     ].filter(p => p),
 };

@@ -33,6 +33,5 @@
         }
     },
     "globals": {
-        "ELECTRON": true
     }
 }
