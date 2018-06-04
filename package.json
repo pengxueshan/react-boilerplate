@@ -43,6 +43,7 @@
     "yargs": "^10.0.3"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "classnames": "^2.2.5",
     "mobx": "^4.3.0",
     "mobx-react": "^5.1.2",
